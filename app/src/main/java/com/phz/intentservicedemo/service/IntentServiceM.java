@@ -37,6 +37,7 @@ public class IntentServiceM extends IntentService {
 
     @Override
     public void onDestroy() {
+        //IntentService好处之一，请求完成后自己关闭，不需要开发者去调stopservice
         super.onDestroy();
         Log.e(IntentServiceM.class.getName(), "onDestroy");
     }
@@ -44,17 +45,18 @@ public class IntentServiceM extends IntentService {
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
-
     }
 
     @Override
     public void setIntentRedelivery(boolean enabled) {
+        //根据此方法设置的布尔值来决定onStartCommand 返回START_NOT_STICKY(默认这种)还是START_REDELIVER_INTENT(START_REDELIVER_INTENT 型服务会在可用资源不再吃紧的时候尝试再次启动服务)
         super.setIntentRedelivery(enabled);
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        //与service的区别是，默认返回null
         return super.onBind(intent);
     }
 }
